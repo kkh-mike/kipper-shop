@@ -9,7 +9,34 @@ app.get('/', (req, res) => {
 });
 
 app.get('/products', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'products.html'));
+
+  let html = `
+    <h1>Product List</h1>
+    <hr>
+  `;
+
+  products.forEach(product => {
+
+    html += `
+      <div style="margin-bottom:20px">
+
+        <h2>${product.name}</h2>
+
+        <p>
+          Price: $${product.price}
+        </p>
+
+        <a href="/products/${product.id}">
+          View Detail
+        </a>
+
+      </div>
+    `;
+
+  });
+
+  res.send(html);
+
 });
 
 app.get('/products/:id', (req, res) => {
