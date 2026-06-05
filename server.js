@@ -1,3 +1,4 @@
+const products = require('./data/products');
 const express = require('express');
 const path = require('path');
 
@@ -13,15 +14,26 @@ app.get('/products', (req, res) => {
 
 app.get('/products/:id', (req, res) => {
 
-  const productId = req.params.id;
+  const productId = parseInt(req.params.id);
+
+  const product = products.find(
+    p => p.id === productId
+  );
+
+  if (!product) {
+    return res.send('Product not found');
+  }
 
   res.send(`
-      <h1>Product Detail</h1>
-      <h2>Product ID : ${productId}</h2>
+    <h1>${product.name}</h1>
 
-      <a href="/products">
-        Back To Products
-      </a>
+    <h2>Price: $${product.price}</h2>
+
+    <p>${product.description}</p>
+
+    <a href="/products">
+      Back To Products
+    </a>
   `);
 
 });
