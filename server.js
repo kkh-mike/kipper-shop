@@ -8,5 +8,5 @@ app.get('/', (req, res) => {
 });
 
 app.listen(3000, () => {
-  console.log('Mike Shop running...');
+  console.log('Kipper Shop running...');
 });
